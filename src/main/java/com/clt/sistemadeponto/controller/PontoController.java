@@ -6,8 +6,8 @@ import org.springframework.web.bind.annotation.RestController;
 @RestController
 public class PontoController {
 
-    @GetMapping("/")
+    @GetMapping("/ponto")
     public String index() {
-        return "Atumalaka";
+        return "Lista de ponto";
     }
 }
