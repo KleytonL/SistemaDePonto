@@ -2,6 +2,8 @@ package com.clt.sistemadeponto.entity;
 
 import jakarta.persistence.*;
 
+import java.util.Date;
+
 @Entity
 @Table(name = "Usuarios")
 public class Usuario {
@@ -15,6 +17,9 @@ public class Usuario {
 
     @Column(nullable = false, unique = true)
     private String cpf;
+
+    @Column(nullable = false)
+    private String ultimoPonto;
 
     public Usuario() {}
 
@@ -41,5 +46,13 @@ public class Usuario {
 
     public void setCpf(String cpf) {
         this.cpf = cpf;
+    }
+
+    public String getUltimoPonto() {
+        return ultimoPonto;
+    }
+
+    public void setUltimoPonto(String ultimoPonto) {
+        this.ultimoPonto = ultimoPonto;
     }
 }

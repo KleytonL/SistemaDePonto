@@ -52,6 +52,7 @@ public class UsuarioService {
         Usuario usuario = usuarioExistente.get();
         usuario.setNome(usuarioAtualizado.getNome());
         usuario.setCpf(usuarioAtualizado.getCpf());
+        usuario.setUltimoPonto(usuarioAtualizado.getUltimoPonto());
 
         return usuarioRepository.save(usuario);
     }
