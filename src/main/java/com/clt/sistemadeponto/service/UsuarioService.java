@@ -15,7 +15,7 @@ public class UsuarioService {
     private UsuarioRepository usuarioRepository;
 
     public Usuario criarUsuario(Usuario usuario) {
-        if (usuarioRepository.findByCpf(usuario.getCpf()).isPresent()) {
+        if (usuarioRepository.existsByCpf(usuario.getCpf())) {
             throw new RuntimeException("Já existe um usuário com este CPF: " + usuario.getCpf());
         }
         return usuarioRepository.save(usuario);
@@ -44,8 +44,9 @@ public class UsuarioService {
             throw new RuntimeException("Usuário não encontrado com ID: " + id);
         }
 
-        if (usuarioRepository.existsByCpf(usuarioAtualizado.getCpf())) {
-            throw new RuntimeException("Já existe outro usuário com este email: " + usuarioAtualizado.getCpf());
+        Optional<Usuario> usuarioComMesmoCpf = usuarioRepository.findByCpf(usuarioAtualizado.getCpf());
+        if (usuarioComMesmoCpf.isPresent() && !usuarioComMesmoCpf.get().getId().equals(id)) {
+            throw new RuntimeException("Já existe outro usuário com este CPF: " + usuarioAtualizado.getCpf());
         }
 
         Usuario usuario = usuarioExistente.get();

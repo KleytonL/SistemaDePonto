@@ -33,7 +33,7 @@ public class UsuarioController {
         return new ResponseEntity<>(usuarios, HttpStatus.OK);
     }
 
-    @GetMapping("/usuarios/{id}")
+    @GetMapping("/{id}")
     public ResponseEntity<Usuario> buscarUsuarioPorId(@PathVariable Long id) {
         Optional<Usuario> usuario = usuarioService.buscarUsuarioPorId(id);
         if (usuario.isPresent()) {
@@ -43,10 +43,9 @@ public class UsuarioController {
         }
     }
 
-    @GetMapping("/usuarios/cpf/{cpf}")
+    @GetMapping("/cpf/{cpf}")
     public ResponseEntity<Usuario> buscarUsuarioPorCpf(@PathVariable String cpf) {
         Optional<Usuario> usuario = usuarioService.buscarUsuarioPorCpf(cpf);
-
         if (usuario.isPresent()) {
             return new ResponseEntity<>(usuario.get(), HttpStatus.OK);
         } else {
@@ -54,10 +53,14 @@ public class UsuarioController {
         }
     }
 
-    @GetMapping("/usuarios/buscar")
-    public ResponseEntity<Optional<Usuario>> buscarUsuariosPorNome(@RequestParam String nome) {
-        Optional<Usuario> usuarios = usuarioService.buscarUsuarioPorNome(nome);
-        return new ResponseEntity<>(usuarios, HttpStatus.OK);
+    @GetMapping("/buscar")
+    public ResponseEntity<Usuario> buscarUsuariosPorNome(@RequestParam String nome) {
+        Optional<Usuario> usuario = usuarioService.buscarUsuarioPorNome(nome);
+        if (usuario.isPresent()) {
+            return new ResponseEntity<>(usuario.get(), HttpStatus.OK);
+        } else {
+            return new ResponseEntity<>(null, HttpStatus.NOT_FOUND);
+        }
     }
 
     @PutMapping("/{id}")
